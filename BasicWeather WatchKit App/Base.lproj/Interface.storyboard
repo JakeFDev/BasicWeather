@@ -14,23 +14,20 @@
             <objects>
                 <controller id="AgC-eL-Hgc" customClass="InterfaceController">
                     <items>
-                        <label alignment="center" text="Current Weather in" id="WgC-gT-36C">
-                            <fontDescription key="font" type="system" pointSize="15"/>
-                        </label>
-                        <label alignment="center" text="City, State" id="XIM-58-MPC"/>
-                        <label alignment="center" text="(Weather)" id="Bck-5o-h7P"/>
+                        <label alignment="center" text="..." id="XIM-58-MPC"/>
+                        <label alignment="center" text="..." id="Bck-5o-h7P"/>
                         <dateLabel alignment="center" id="0It-1b-byg">
                             <dateFormatterStyle key="dateStyle" short="YES"/>
                             <dateFormatterStyle key="timeStyle" short="YES"/>
                         </dateLabel>
-                        <button width="1" alignment="left" verticalAlignment="bottom" title="Refresh" id="RsW-7j-x7o">
+                        <button width="34" height="20" alignment="center" verticalAlignment="bottom" backgroundImage="icons8-synchronize-48" id="RsW-7j-x7o">
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
                                 <action selector="refreshTapped" destination="AgC-eL-Hgc" id="83Y-Dt-cdY"/>
                             </connections>
                         </button>
                     </items>
                     <connections>
-                        <outlet property="CurrentWeatherTextLabel" destination="WgC-gT-36C" id="Z1n-82-90i"/>
                         <outlet property="cityStateLabel" destination="XIM-58-MPC" id="k4h-lC-Ylp"/>
                         <outlet property="dateLabel" destination="0It-1b-byg" id="0gP-jl-Ndt"/>
                         <outlet property="refreshButton" destination="RsW-7j-x7o" id="wMS-b2-ikr"/>
@@ -38,7 +35,7 @@
                     </connections>
                 </controller>
             </objects>
-            <point key="canvasLocation" x="27.897435897435898" y="27.461538461538463"/>
+            <point key="canvasLocation" x="27" y="22"/>
         </scene>
     </scenes>
 </document>

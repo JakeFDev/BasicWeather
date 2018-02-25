@@ -17,35 +17,38 @@
 @implementation InterfaceController
 
 
-int lat = 42;
-int lon = 96;
+int lat, lon;
 CLLocationManager *locationManager;
-const NSString *WEATHER_API_KEY = @"1407c73c598badaf4a915c70886984e2";
+CLGeocoder *geoLocator;
+const NSString *WEATHER_API_KEY = @"1407c73c598badaf4a915c70886984e2";  //OpenWeatherMap API
 NSString *requestURL;
 
 //Callback function when the location sucesfully updates
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
     lat = locationManager.location.coordinate.latitude;
     lon = locationManager.location.coordinate.longitude;
-    NSLog([NSString stringWithFormat:@"%d", lat]);
-    NSLog([NSString stringWithFormat:@"%d", lon]);
     
-    _cityStateLabel.text = [NSString stringWithFormat:@"%d", lat];
-    _weatherLabel.text = [NSString stringWithFormat:@"%d", lon];
+    geoLocator = [[CLGeocoder alloc] init];
+    [geoLocator reverseGeocodeLocation:locationManager.location
+                     completionHandler:^(NSArray *placemarks, NSError *error) {
+        
+        if (!placemarks) {
+            return;
+        }
+        
+        if (placemarks && placemarks.count > 0) {
+            CLPlacemark *placemark = [placemarks objectAtIndex:0];
+            NSString *city = [NSString stringWithFormat:@"%@", [placemark locality]];
+            NSString *state = [NSString stringWithFormat:@"%@", [placemark administrativeArea]];
+            _cityStateLabel.text = [NSString stringWithFormat:@"%@,%@", city, state];
+        }
+    }];
     
     NSLog(@"Sucesfully updaated location.");
 }
 
 //Callback function when the location fails to update
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
-    lat = locationManager.location.coordinate.latitude;
-    lon = locationManager.location.coordinate.longitude;
-    NSLog([NSString stringWithFormat:@"%d", lat]);
-    NSLog([NSString stringWithFormat:@"%d", lon]);
-    
-    _cityStateLabel.text = [NSString stringWithFormat:@"%d", lat];
-    _weatherLabel.text = [NSString stringWithFormat:@"%d", lon];
-    
     NSLog(@"Failed to update location.");
     NSLog(error.localizedDescription);
 }
