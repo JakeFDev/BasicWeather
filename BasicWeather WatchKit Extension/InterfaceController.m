@@ -17,7 +17,6 @@
 @implementation InterfaceController
 
 
-int lat, lon;
 CLLocationManager *locationManager;
 CLGeocoder *geoLocator;
 const NSString *WEATHER_API_KEY = @"1407c73c598badaf4a915c70886984e2";  //OpenWeatherMap API
@@ -25,14 +24,14 @@ NSString *requestURL;
 
 //Callback function when the location sucesfully updates
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
-    lat = locationManager.location.coordinate.latitude;
-    lon = locationManager.location.coordinate.longitude;
+    NSNumber *lat = [NSNumber numberWithDouble:locationManager.location.coordinate.latitude];
+    NSNumber *lon = [NSNumber numberWithDouble:locationManager.location.coordinate.longitude];
     
     geoLocator = [[CLGeocoder alloc] init];
     [geoLocator reverseGeocodeLocation:locationManager.location
                      completionHandler:^(NSArray *placemarks, NSError *error) {
-        
         if (!placemarks) {
+            NSLog(@"Failed to get placemarks.");
             return;
         }
         
@@ -40,7 +39,19 @@ NSString *requestURL;
             CLPlacemark *placemark = [placemarks objectAtIndex:0];
             NSString *city = [NSString stringWithFormat:@"%@", [placemark locality]];
             NSString *state = [NSString stringWithFormat:@"%@", [placemark administrativeArea]];
+            
             _cityStateLabel.text = [NSString stringWithFormat:@"%@,%@", city, state];
+            
+            NSString *openWeatherURI = [NSString stringWithFormat:@"http://api.openweathermap.org/data/2.5/weather?lat=%@&lon=%@&APPID=%@&units=imperial",
+                                       [lat stringValue], [lon stringValue], WEATHER_API_KEY];
+            NSURLRequest *request = [NSURLRequest requestWithURL: [NSURL URLWithString: openWeatherURI]];
+            NSURLSession *session = [NSURLSession sharedSession];
+            NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData * data, NSURLResponse * response, NSError * error) {
+                NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+                _weatherLabel.text = [NSString stringWithFormat:@"%@", json[@"main"][@"temp"]];
+                NSLog(@"%@", json);
+            }];
+            [dataTask resume];
         }
     }];
     
