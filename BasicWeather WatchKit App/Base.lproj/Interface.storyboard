@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="13771" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="14109" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
     <device id="watch38" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="watchOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="13756"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="14031"/>
     </dependencies>
     <scenes>
         <!--Interface Controller-->
@@ -14,14 +14,29 @@
             <objects>
                 <controller id="AgC-eL-Hgc" customClass="InterfaceController">
                     <items>
-                        <label alignment="center" text="..." id="XIM-58-MPC"/>
-                        <label alignment="center" text="..." id="Bck-5o-h7P"/>
-                        <dateLabel alignment="center" id="0It-1b-byg">
-                            <dateFormatterStyle key="dateStyle" short="YES"/>
-                            <dateFormatterStyle key="timeStyle" short="YES"/>
-                        </dateLabel>
-                        <button width="34" height="20" alignment="center" verticalAlignment="bottom" backgroundImage="icons8-synchronize-48" id="RsW-7j-x7o">
-                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <label alignment="center" verticalAlignment="center" text="30 F" id="Bck-5o-h7P">
+                            <color key="textColor" red="0.93483036756515503" green="0.38906466960906982" blue="0.31992235779762268" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <fontDescription key="font" type="system" pointSize="42"/>
+                            <variation key="device=watch42mm">
+                                <fontDescription key="font" type="system" pointSize="46"/>
+                            </variation>
+                        </label>
+                        <separator alignment="left" verticalAlignment="bottom" id="Rcb-nO-tIA">
+                            <color key="color" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </separator>
+                        <separator alignment="left" verticalAlignment="bottom" id="Bfg-PX-vnf">
+                            <color key="color" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </separator>
+                        <label alignment="center" verticalAlignment="bottom" text="Duluth, MN" id="XIM-58-MPC">
+                            <color key="textColor" red="0.93846958879999998" green="0.9150059223" blue="0.95563668010000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <fontDescription key="font" type="system" pointSize="16"/>
+                            <variation key="device=watch42mm">
+                                <fontDescription key="font" type="system" pointSize="17"/>
+                            </variation>
+                        </label>
+                        <button width="1" alignment="center" verticalAlignment="bottom" title="Refresh" id="RsW-7j-x7o">
+                            <color key="titleColor" red="0.93846958875656128" green="0.91500592231750488" blue="0.95563668012619019" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="backgroundColor" red="0.031195778399705887" green="0.69821661710739136" blue="0.89048486948013306" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
                                 <action selector="refreshTapped" destination="AgC-eL-Hgc" id="83Y-Dt-cdY"/>
                             </connections>
@@ -29,7 +44,6 @@
                     </items>
                     <connections>
                         <outlet property="cityStateLabel" destination="XIM-58-MPC" id="k4h-lC-Ylp"/>
-                        <outlet property="dateLabel" destination="0It-1b-byg" id="0gP-jl-Ndt"/>
                         <outlet property="refreshButton" destination="RsW-7j-x7o" id="wMS-b2-ikr"/>
                         <outlet property="weatherLabel" destination="Bck-5o-h7P" id="e6R-nv-vMb"/>
                     </connections>

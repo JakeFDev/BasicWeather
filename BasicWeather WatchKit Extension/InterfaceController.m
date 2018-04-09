@@ -19,8 +19,9 @@
 
 CLLocationManager *locationManager;
 CLGeocoder *geoLocator;
-const NSString *WEATHER_API_KEY = @"1407c73c598badaf4a915c70886984e2";  //OpenWeatherMap API
 NSString *requestURL;
+const NSString *WEATHER_API_KEY = @"1407c73c598badaf4a915c70886984e2";  //OpenWeatherMap API
+const NSString *fahrenheit = @"\u00B0F";
 
 //Callback function when the location sucesfully updates
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
@@ -48,7 +49,7 @@ NSString *requestURL;
             NSURLSession *session = [NSURLSession sharedSession];
             NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData * data, NSURLResponse * response, NSError * error) {
                 NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-                _weatherLabel.text = [NSString stringWithFormat:@"%@", json[@"main"][@"temp"]];
+                _weatherLabel.text = [NSString stringWithFormat:@"%d %@", [json[@"main"][@"temp"] intValue] , fahrenheit];
                 NSLog(@"%@", json);
             }];
             [dataTask resume];
